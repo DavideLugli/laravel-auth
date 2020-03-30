@@ -25,7 +25,7 @@
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
             <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post->slug)}}">View</a></td>
-            <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post->id)}}">Edit</a> </td>
+            <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post->slug)}}">Edit</a> </td>
             <td>
               <form action="{{route('admin.posts.destroy',
                 $post)}}" method="post">

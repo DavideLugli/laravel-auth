@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 // solo x gli admin
 class PostController extends Controller
@@ -16,7 +17,9 @@ class PostController extends Controller
      */
     public function index()
     {
-      dd('prova route');
+      $posts = Post::where('user_id', Auth::id())->get();
+      // dd('solo x admin');
+    return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -46,9 +49,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+        // dd($post);
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -82,6 +87,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+    if (empty($post)) {
+      abort('404');
+    }
+    $post->delete();
+
+    return redirect()->route('admin.posts.index');
+    // return redirect()->route('admin.posts.index')->with('id_delete',
+    // $post->id);
     }
 }

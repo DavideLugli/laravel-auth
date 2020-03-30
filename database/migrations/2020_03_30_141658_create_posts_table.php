@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
 
             $table->string('title');
             $table->longText('body');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

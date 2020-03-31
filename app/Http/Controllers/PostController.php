@@ -10,7 +10,15 @@ class PostController extends Controller
 // x tutti (utenti, admin, ospiti)
 public function index()
 {
-  dd('prova route');
-  // return view('guest.posts.index', compact('posts'));
+  $posts = Post::all();
+  return view('guest.posts.index', compact('posts'));
 }
+
+public function show($slug)
+{
+  $post = Post::where('slug', $slug)->first();
+
+  return view('guest.posts.show', compact('post'));
+}
+
 }

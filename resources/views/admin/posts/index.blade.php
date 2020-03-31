@@ -1,10 +1,13 @@
-@extends('layouts.app');
+@extends('layouts.app')
 @section('content')
-  {{-- @if (session('id_delete'))
+{{-- @if (session('id_delete'))
   <div class="alert alert-success">
       Hai cancellato il post con id: {{ session('id_delete') }}
-  </div>
-  @endif --}}
+</div>
+@endif --}}
+<div class="mt-3 mb-3">
+    <a class="btn btn-primary" href="{{route('admin.posts.create')}}">Crea un nuovo post</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -27,12 +30,12 @@
             <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post->slug)}}">View</a></td>
             <td><a class="btn btn-success" href="{{route('admin.posts.edit', $post->slug)}}">Edit</a> </td>
             <td>
-              <form action="{{route('admin.posts.destroy',
+                <form action="{{route('admin.posts.destroy',
                 $post)}}" method="post">
-              @csrf
-              @method('DELETE')
-              <button class="btn btn-danger" type="submit">Delete</button>
-              </form>
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
             </td>
         </tr>
         @endforeach

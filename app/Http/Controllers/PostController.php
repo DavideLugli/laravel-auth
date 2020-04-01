@@ -17,6 +17,10 @@ public function index()
 public function show($slug)
 {
   $post = Post::where('slug', $slug)->first();
+  if(empty($post))
+  {
+    abort(404);
+  }
 
   return view('guest.posts.show', compact('post'));
 }

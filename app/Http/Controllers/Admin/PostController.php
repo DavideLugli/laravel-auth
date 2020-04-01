@@ -72,6 +72,11 @@ class PostController extends Controller
             return redirect()->back();
         }
 
+        $tags = $data['tags'];
+        if (!empty($tags)) {
+        $newPost->tags()->attach($tags);
+        }
+        // dd($newPost->tags);
         return redirect()->route('admin.posts.show', $newPost->slug);
     }
 
@@ -97,7 +102,13 @@ class PostController extends Controller
      public function edit($slug)
      {
          $post = Post::where('slug', $slug)->first();
-         return view('admin.posts.edit', compact('post'));
+         $tags = Tag::all();
+         $data = [
+           'post' => $post,
+           'tags' => $tags
+         ];
+
+         return view('admin.posts.edit', $data);
      }
 
     /**
@@ -133,6 +144,14 @@ class PostController extends Controller
       return redirect()->back();
     }
 
+    $tags = $data['tags'];
+  
+
+    if (!empty($tags))
+    {
+    $post->tags()->sync($tags);
+    }
+
     return redirect()->route('admin.posts.show', $post->slug);
     }
 
@@ -147,6 +166,7 @@ class PostController extends Controller
     if (empty($post)) {
       abort('404');
     }
+    $post->tags()->detach();
     $post->delete();
 
     return redirect()->route('admin.posts.index');

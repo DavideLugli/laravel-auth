@@ -14,6 +14,18 @@
           <label for="body">Body</label>
         <textarea class="form-control" name="body" id="body" cols="30" rows="10">{{$post->body}}</textarea>
         </div>
+
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          @foreach ($tags as $tag)
+          <div>
+            <span>{{$tag->name}}</span>
+            <input type="checkbox" name="tags[]" value="{{$tag->id}}" {{($post->tags->contains($tag->id)) ? 'checked' : ''}}>
+          </div>
+          @endforeach
+        </div>
+
+
         <button class="btn btn-success" type="submit">Salva</button>
       </form>
     </div>

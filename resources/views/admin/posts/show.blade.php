@@ -9,7 +9,7 @@
             <th>User ID</th>
             <th>Created At</th>
             <th>Updated At</th>
-            {{-- <th colspan="3"></th> --}}
+
         </tr>
     </thead>
     <tbody>
@@ -21,9 +21,7 @@
             <td>{{$post->user_id}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
-            {{-- <td><a class="btn btn-primary" href="{{route('admin.posts.show', $post->slug)}}">View</a></td> --}}
-            {{-- <td>Edit</td>
-            <td>Delete</td> --}}
+
         </tr>
 
 
@@ -31,4 +29,7 @@
 
 </table>
 
+<div class="img">
+<img src="{{asset('storage/' . $post->img_path)}}" alt="">
+</div>
 @endsection

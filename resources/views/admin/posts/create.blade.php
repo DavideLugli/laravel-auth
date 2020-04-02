@@ -2,7 +2,7 @@
 @section('content')
   <div class="container">
     <div class="row">
-      <form action="{{route('admin.posts.store')}}" method="post">
+      <form action="{{route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="form-group">
@@ -15,7 +15,7 @@
         <textarea class="form-control" name="body" id="body" cols="30" rows="10" placeholder="Inserisci contenuto post"></textarea>
         </div>
 
-        
+
         <div class="form-group">
           <label for="tags">Tags</label>
           @foreach ($tags as $tag)
@@ -24,6 +24,11 @@
             <input type="checkbox" name="tags[]" value="{{$tag->id}}">
           </div>
           @endforeach
+        </div>
+
+        <div class="form-group">
+
+          <input type="file" name="img_path" accept="image/*">
         </div>
 
         <button class="btn btn-success" type="submit">Salva</button>

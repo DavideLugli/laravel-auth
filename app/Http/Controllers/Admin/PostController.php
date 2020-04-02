@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 // solo x gli admin
@@ -55,15 +56,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->all());
       $idUser = Auth::user()->id;
 
-      $request->validate($this->validateRules);
+      // $request->validate($this->validateRules);
+      $request->validate([
+        'title' => 'required|string|max:255',
+        'body' => 'required|string|max:255',
+        'img_path' => 'image'
+      ]);
       $data = $request->all();
 
       $newPost = new Post;
+
+      $path = Storage::disk('public')->put('images', $data['img_path']);
+
       $newPost->title = $data['title'];
       $newPost->body = $data['body'];
       $newPost->user_id = $idUser;
+      $newPost->img_path = $path;
       $newPost->slug = rand(1, 40) . '-' . Str::slug($newPost->title);
 
       $saved = $newPost->save();
@@ -145,7 +156,7 @@ class PostController extends Controller
     }
 
     $tags = $data['tags'];
-  
+
 
     if (!empty($tags))
     {

@@ -10,6 +10,7 @@ protected $fillable = [
 'user_id',
 'title',
 'body',
+'img_path',
 'slug',
 'updated_at'
 ];
